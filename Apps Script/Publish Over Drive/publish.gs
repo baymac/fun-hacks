@@ -1,11 +1,18 @@
-/**
-* @OnlyCurrentDoc
-*/
+ /**
+ * @OnlyCurrentDoc
+ * The event handler triggered when opening the spreadsheet.
+ * @param {Event} e The onOpen event.
+ */
 
 function onOpen(e) {
-  DocumentApp.getUi().createAddonMenu()
-    .addItem('Start workflow', 'showBar')
-    .addToUi();
+  var menu = DocumentApp.getUi().createAddonMenu();
+  Logger.log(e.authMode);
+  menu.addItem('Start workflow', 'showBar');
+  menu.addToUi();
+}
+
+function onInstall(e) {
+  onOpen(e);
 }
 
 function showBar() {
@@ -17,36 +24,22 @@ function showBar() {
 function upload() {
   Logger.log("started uploading..")
   var ui = DocumentApp.getUi();
-  var blob = generatePdf(ui);
+  var blob = generatePdf();
   
   var url = "xxx";
   
-  if( blob != -1) {
-    url = publishOverDrive(blob);
-    ui.alert('Your PDF file is uploaded');
-  } else {
-    ui.alert('Request has been cancelled.');
-  }
+  url = publishOverDrive(blob);
+  
   return url;
 }
 
-function generatePdf(ui) {
+function generatePdf() {
+  var ui = DocumentApp.getUi();
+  var doc = DocumentApp.getActiveDocument();
   
-  doc = DocumentApp.getActiveDocument();
-  
-  var result = ui.alert(
-      'Save As PDF?',
-      'Save current document (Name:'+doc.getName()+'.pdf) as PDF',
-      ui.ButtonSet.YES_NO);
-  
-  if (result == ui.Button.YES) {
-    docblob = DocumentApp.getActiveDocument().getAs('application/pdf');
-    docblob.setName(doc.getName() + ".pdf");
-    return docblob;
-  } else { 
-    return -1;
-  }
-  
+  docblob = DocumentApp.getActiveDocument().getAs('application/pdf');
+  docblob.setName(doc.getName() + ".pdf");
+  return docblob;
 }
 
 function publishOverDrive(docblob) {
@@ -63,12 +56,11 @@ function publishOverDrive(docblob) {
   
   var existing = folder.getFilesByName(docblob.getName());
   
-  // Does file exist?
+  
   if (existing.hasNext()) {
   
     file = existing.next(); 
     
-    // Updates file metadata and/or content with the Drive API
     Drive.Files.update({
       title: file.getName(), mimeType: file.getMimeType()
     }, file.getId(), docblob);

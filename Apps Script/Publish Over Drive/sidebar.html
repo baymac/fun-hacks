@@ -4,22 +4,54 @@
     <base target="_top">
     <script>
       function updateUrl(url) {
+        displayMessage("Successfully Uploaded");
         var div = document.getElementById('show-link');
-        
         div.innerHTML = '<a href="' + url + '">View PDF</a>';
       }
+      
+      function askPerm() {
+        var p = document.getElementById('prompt');
+        p.innerHTML = "Do you want to save this PDF?";
+        var div = document.getElementById('show-yes-no');
+        div.innerHTML =
+        '<input type="button" value="Yes" onclick="handleYesClick()" />'
+        + '<input type="button" value="No" onclick="handleNoClick()" />';
+      }
+      
+      function displayMessage(msg) {
+        var p = document.getElementById('prompt');
+        p.innerHTML = msg;
+        var div = document.getElementById('show-yes-no');
+        div.innerHTML = '';
+      }      
 
-      function handleButtonClick(button) {
+      function handlePublishClick() {
+        askPerm();    
+      }
+      
+      function handleYesClick() {
+        displayMessage("Uploading..");
         google.script.run
           .withSuccessHandler(updateUrl)
-          .upload();     
-      }
+          .upload();
+       }
+       
+       function handleNoClick() {
+         displayMessage("Cancelled");
+       }
+      
     </script>
   </head>
   <body>
     <input type="button" value="Publish PDF"
-        onclick="handleButtonClick(this)" />
+        onclick="handlePublishClick()" />
+    <p id="prompt"></p>
+    <div id="show-yes-no">
+    </div>
     <div id="show-link">
     </div>
   </body>
 </html>
+
+
+
