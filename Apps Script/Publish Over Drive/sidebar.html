@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <script>
+      function updateUrl(url) {
+        var div = document.getElementById('show-link');
+        
+        div.innerHTML = '<a href="' + url + '">View PDF</a>';
+      }
+
+      function handleButtonClick(button) {
+        google.script.run
+          .withSuccessHandler(updateUrl)
+          .upload();     
+      }
+    </script>
+  </head>
+  <body>
+    <input type="button" value="Publish PDF"
+        onclick="handleButtonClick(this)" />
+    <div id="show-link">
+    </div>
+  </body>
+</html>
