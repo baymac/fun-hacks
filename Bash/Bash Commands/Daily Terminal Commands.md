@@ -59,14 +59,21 @@ Day 9:
 
 Day 10:
 1. To kill a process in a particular port:
-		$ kill -9 $(lsof -t -i:8080)
+		$ sudo kill -9 $(lsof -t -i:8080)
 	option 9 is given for hard kill
+
+		$ sudo netstat -nlp | grep :8080
+		$ sudo kill kill -9 <pid>
 
 Day 11:
 1. Open a file with its default app:
 		$ xdg-open xxx.pdf
 
 
-
-
+Day 12:
+1. Change user:
+	  	$ su - <username>
+2. Change user group of an application
+ 		$ sudo groupadd docker
+		$ sudo usermod -aG docker $USER
 
