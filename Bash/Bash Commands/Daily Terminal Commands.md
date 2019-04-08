@@ -1,5 +1,6 @@
 Day 1:
-1.moving a folder:
+
+1. Moving a folder:
 ```
 $ mv Books /media/baymax_/db15db98-9aec-4133-bbbf-7bc5624a98ec/oem/Desktop
 ```
@@ -10,10 +11,11 @@ $ ln(#link) -s(#symbolic) 'path' 'path'
 ```
 
 Day 2:
-1.Use 'tab key' to complete the file name after writing initial few letters
+
+1. Use 'tab key' to complete the file name after writing initial few letters
 
 Day 3:
-1.changing permissions of a folder
+1. Changing permissions of a folder
 ```
 $ sudo chown -R xyz.xyz /abc		#where xyz is username
 ```
