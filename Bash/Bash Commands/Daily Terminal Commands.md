@@ -98,7 +98,7 @@ $ sudo kill -9 $(lsof -t -i:8080)
 option 9 is given for hard kill
 ```
 $ sudo netstat -nlp | grep :8080
-$ sudo kill kill -9 <pid>
+$ sudo kill -9 <pid>
 ```
 
 ### Day 11:
