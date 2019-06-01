@@ -53,13 +53,11 @@ git push origin master
 ```
 To address merge conflicts see below
 
-#### Delete git branch
-
-#### To remove a local branch from your machine
+#### To delete a local branch from your machine
 
 `git branch -d {the_local_branch} (use -D instead to force deleting the branch without checking merged status)`
 
-#### To remove a remote branch from the server
+#### To delete a remote branch from the server
 
 `git push origin --delete {the_remote_branch}`
 
