@@ -98,6 +98,8 @@ If you have some local changes and unable to pull from upstream repository, dele
 
 ### To see difference
 
+To see difference between:
+
 #### Between HEAD and modified files in working directory:
 
 `git diff`
@@ -152,16 +154,22 @@ git merge <branch_name_to_merge_with_master>
 ```
 
 ![before merge](img/beforeMerge.png "Before Git Merge")
+`Before Git Merge`
+
 
 ![after merge](img/afterMerge.png "After Git Merge")
+`After Git Merge`
 
-### Divergent Brancges merging
+### Divergent Branches merging
 
 This is the case when both master and <branch-1> originated from the same commit, but since then they diverged, each having their own additional commit. Here a fast-forward merge is not possible. Instead git opens up an editor and allow you to type a message of the merge commit.
 
+
 ![before diverge merge](img/beforeDivergeMerge.png "Before Divergent Branches Git Merge")
+`Before Divergent Branches Git Merge`
 
 ![after diverge merge](img/afterDivergeMerge.png "After Divergent Branches Git Merge")
+`After Divergent Branches Git Merge`
 
 Revisions in git, aren't only a snapshot of your files but also contain information on where they came from from. Each commit has one or more parent commits. Our new merge commit, has both the last commit from master and the commit we made on the other branch as it's parents.
 
@@ -217,7 +225,7 @@ git add .
 git commit -m "Resolved merge conflict."
 ```
 
-#### Abort merge conflict (without commiting)
+#### To abort merge conflict (without commiting)
 
 ```
 git commit --abort
@@ -287,7 +295,7 @@ git clean
 
 2. `Rebase` just changes the point in history (the commit) your branch is based on.
 
-### To rebase a branch
+#### To rebase a branch
 
 ```
 git checkout <branch-name>
@@ -317,7 +325,7 @@ to let the rebase continue.
 
 The conflict will be resolved in the commit that was just being applied.
 
-### Abort Rebasing
+#### To abort Rebasing
 
 In case rebase went wrong:
 
@@ -325,7 +333,7 @@ In case rebase went wrong:
 git rebase --abort
 ```
 
-### To pull with rebase
+#### To pull with rebase
 
 ```
 git pull -r
@@ -339,28 +347,28 @@ git config --global pull.rebase true
 
 ## Stash
 
-### To stash changes
+#### To stash changes
 
 If at any point you have local changes that you do not yet want to put into a commit, or want to store somewhere while you try some different angle to solve a problem, you can stash those changes away.
 
 A git stash is basically a stack of changes on which you store any changes to the Working Directory.
 
-### To bring back stashed changes by removing changes from the stash
+#### To bring back stashed changes by removing changes from the stash
 
 `git stash pop`
 
-### To bring back stashed changes without removing changes from the stash
+#### To bring back stashed changes without removing changes from the stash
 
 `git stash apply`
 
-### To inspect stash
+#### To inspect stash
 
 `git stash list`
 
-### To show changes in the lastest entry on stash
+#### To show changes in the lastest entry on stash
 
 `git stash show`
 
-### To create a new branch from the lastest entry on stash
+#### To create a new branch from the lastest entry on stash
 
 `git stash branch <branch-name>`
