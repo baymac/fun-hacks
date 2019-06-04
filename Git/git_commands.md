@@ -93,6 +93,28 @@ If you have some local changes and unable to pull from upstream repository, dele
 
 `git reset --hard origin/master`
 
+### To see difference 
+
+#### Between HEAD and modified files in working directory:
+
+`git diff`
+
+#### Between HEAD and modified files in stage area:
+
+`git diff --staged`
+
+#### Between HEAD and a specific commit:
+
+`git diff <commit_hash>`
+
+#### Between two commits:
+
+`git diff <commit1_hash> <commit2_hash>`
+
+#### Between a commit and its previous commit 
+
+`git diff <commit_hash>^!`
+
 ## TAGS
 
 #### To create a basic tag
@@ -117,7 +139,7 @@ If you have some local changes and unable to pull from upstream repository, dele
 
 ## Merging
 
-#### Fast Forward merging
+### Fast Forward merging
  
 There are no other conflicting changes to any files, and nothing changed on master, this will go through without a hitch in what is called a fast forward merge.
 
@@ -130,7 +152,7 @@ git merge <branch_name_to_merge_with_master>
 
 ![after merge](img/afterMerge.png "After Git Merge") 
 
-#### Divergent Brancges merging
+### Divergent Brancges merging
 
 This is the case when both master and <branch-1> originated from the same commit, but since then they diverged, each having their own additional commit. Here a fast-forward merge is not possible. Instead git opens up an editor and allow you to type a message of the merge commit.
 
@@ -140,9 +162,11 @@ This is the case when both master and <branch-1> originated from the same commit
 
 Revisions in git, aren't only a snapshot of your files but also contain information on where they came from from. Each commit has one or more parent commits. Our new merge commit, has both the last commit from master and the commit we made on the other branch as it's parents.
 
-#### Resolving Conflicts
+### Resolving Conflicts
 
 There are often times you face merge conflicts while merging branches. This generally due different changes to the same file(or files) in both branches. Git cannot resolve this for you, this needs to be done manually.
+
+#### Files affected: 
 
 To see the list of file affected by merge conflict:
 
@@ -171,30 +195,32 @@ open an issue
 ask your question in IRC.
 >>>>>>> branch-a
 ```
+#### Save changes
+
 Decide if you want to keep only your branch's changes, keep only the other branch's changes, or make a brand new change, which may incorporate changes from both branches. Delete the conflict markers `<<<<<<<`, `=======`, `>>>>>>>` and make the changes you want in the final merge. In this example, both changes are incorporated into the final merge:
 
 ```
 If you have questions, please open an issue or ask in our IRC channel if it's more urgent.
 ```
 
-If you decide to remove the file:
+#### If you decide to remove the file:
 
 `git rm styleguide.md`
 
-Then commit the merge:
+#### Commit the merge:
 
 ```
 git add .
 git commit -m "Resolved merge conflict."
 ```
 
-In case you decide to abort `git merge`:
+#### Abort merge conflict (without commiting)
 
 ```
 git commit --abort
 ```
 
-#### Alternate method
+### Using Mergetool
 
 #### To set vimdiff as default merge tool:
 ```
@@ -250,26 +276,4 @@ git commit -m "message"
 git clean
 ```
 
-## Difference
-
-#### To see difference 
-
-1. Between HEAD and modified files in working directory:
-
-`git diff`
-
-2. Between HEAD and modified files in stage area:
-
-`git diff --staged`
-
-3. Between HEAD and a specific commit:
-
-`git diff <commit_hash>`
-
-4. Between two commits:
-
-`git diff <commit1_hash> <commit2_hash>`
-
-5. Between a commit and its previous commit 
-
-`git diff <commit_hash>^!`
+## Rebasing
