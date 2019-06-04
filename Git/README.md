@@ -96,7 +96,7 @@ If you have some local changes and unable to pull from upstream repository, dele
 
 `git reset --hard origin/master`
 
-### To see difference
+### Git Difference
 
 To see difference between:
 
@@ -156,19 +156,17 @@ git merge <branch_name_to_merge_with_master>
 ![before merge](img/beforeMerge.png "Before Git Merge")
 `Before Git Merge`
 
-
-![after merge](img/afterMerge.png "After Git Merge")
+![after merge](img/afterMerge.png "After Git Merge") 
 `After Git Merge`
 
 ### Divergent Branches merging
 
 This is the case when both master and <branch-1> originated from the same commit, but since then they diverged, each having their own additional commit. Here a fast-forward merge is not possible. Instead git opens up an editor and allow you to type a message of the merge commit.
 
-
-![before diverge merge](img/beforeDivergeMerge.png "Before Divergent Branches Git Merge")
+![before diverge merge](img/beforeDivergeMerge.png "Before Divergent Branches Git Merge") 
 `Before Divergent Branches Git Merge`
 
-![after diverge merge](img/afterDivergeMerge.png "After Divergent Branches Git Merge")
+![after diverge merge](img/afterDivergeMerge.png "After Divergent Branches Git Merge") 
 `After Divergent Branches Git Merge`
 
 Revisions in git, aren't only a snapshot of your files but also contain information on where they came from from. Each commit has one or more parent commits. Our new merge commit, has both the last commit from master and the commit we made on the other branch as it's parents.
@@ -313,7 +311,7 @@ Rebase is an incredibly powerful tool when you're working on your own `developme
 
 Using rebase you can make sure that you frequently integrate the changes other people make and push to master, while keeping a clean linear history that allows you to do a fast-forward merge when it's time to get your work into the shared branch.
 
-### Resolving conflicts
+#### Resolving conflicts 
 
 It stops the current `rebase` and asks you to fix the conflict. The conflicting files will be marked  as “both modified” and the conflicting sections will have some markup to help you find what differs. When you’re done with the modifications, you then `git add` the modified files and run
 
