@@ -1,4 +1,4 @@
-This gist contains works of other users that I collected in the past but unfortunately I do not have references to them. 
+# A list of git commands and related information, collected during my learning experience. 
 
 ## Initialise Git
 
