@@ -1,5 +1,3 @@
-# A list of git commands and related information, collected during my learning experience. 
-
 ## Initialise Git
 
 #### To create a local repo and pushing to github repo:
@@ -46,6 +44,7 @@ git pull [upstream_repo_url] [branch_name]
 
 `git pull` which does a `git fetch` followed by a `git merge` to update the local repo with the remote repo
 
+If this isn't a fast forward merge (see below):
 ```
 git commit -m "merging with upstream repo"
 
@@ -62,6 +61,10 @@ To address merge conflicts see below
 `git push origin --delete {the_remote_branch}`
 
 ## Commits
+
+### HEAD
+
+`HEAD` is the pointer to the current commit we're at in our Dev Environment.
 
 #### To view git commits
 
@@ -277,3 +280,79 @@ git clean
 ```
 
 ## Rebasing
+
+`Rebase` offers a cleaner way of integrating divergent brancges than `Merge`.
+
+1. `Merge` introduces a merge commit in which the two histories get integrated again.
+
+2. `Rebase` just changes the point in history (the commit) your branch is based on.
+
+### To rebase a branch
+
+```
+git checkout <branch-name>
+git rebase master
+```
+HEAD moves from current branch latest commit to the HEAD (latest commit) of master. Then rebase applies every single commit we made on current branch to that.
+
+To be more exact what git does after moving HEAD back to the common ancestor of the branches(master and current branch), is store parts of every single commit you've made on current branch (the diff of changes, and the commit text, author, etc.).
+
+After that it does a checkout of the latest commit of the branch you're rebasing on, and then applies each of the stored changed as a new commit on top of that.
+
+All the divergent commits of our current branch is magically merged inside the `master` branch's HEAD commit and now our current branch HEAD points to a new commit whose ancestor is `master` branch HEAD.
+
+Rebase is an incredibly powerful tool when you're working on your own `development` branch which is based on a shared branch, e.g. the `master`.
+
+Using rebase you can make sure that you frequently integrate the changes other people make and push to master, while keeping a clean linear history that allows you to do a fast-forward merge when it's time to get your work into the shared branch.
+
+### Resolving conflicts 
+
+Just like for a merge you may run into conflicts, if you run into two commits changing the same parts of a file. However when you encounter a conflict during a rebase you don't fix it in an extra merge commit, but can simply resolve it in the commit that is currently being applied. 
+
+Unlike merge commit, you simply add the changes to the Staging Environment and then 
+
+```
+git rebase --continue
+```
+
+The conflict will be resolved in the commit that was just being applied.
+
+### Abort Rebasing
+
+`git rebase --abort`
+
+### To pull with rebase
+
+`git pull -r`
+
+or
+
+`git config --global pull.rebase true`
+
+## Stash
+
+### To stash changes
+
+If at any point you have local changes that you do not yet want to put into a commit, or want to store somewhere while you try some different angle to solve a problem, you can stash those changes away.
+
+A git stash is basically a stack of changes on which you store any changes to the Working Directory.
+
+### To bring back stashed changes by removing changes from the stash
+
+`git stash pop`
+
+### To bring back stashed changes without removing changes from the stash
+
+`git stash apply`
+
+### To inspect stash
+
+`git stash list`
+
+### To show changes in the lastest entry on stash
+
+`git stash show`
+
+### To create a new branch from the lastest entry on stash
+
+`git stash branch <branch-name>`
