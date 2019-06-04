@@ -1,3 +1,5 @@
+A reference to git commands and related theories:
+
 ## Initialise Git
 
 #### To create a local repo and pushing to github repo:
@@ -25,32 +27,39 @@ git push -u origin master
 
 #### To create a new branch:
 
-`git branch [branch_name]`
+```
+git branch [branch_name]
+```
 
 #### To switch a branch:
 
-`git checkout [branch_name]`
+```
+git checkout [branch_name]
+```
 
 #### To push a branch:
 
-`git push -u origin [branch_name]`
-
-#### To merge master with the upstream repo:
 ```
-git checkout master
-
-git pull [upstream_repo_url] [branch_name]
+git push -u origin [branch_name]
 ```
+
+#### To pull from remote branch:
 
 `git pull` which does a `git fetch` followed by a `git merge` to update the local repo with the remote repo
 
-If this isn't a fast forward merge (see below):
+```
+git checkout master
+
+git pull [remote_name or remote_url] [branch_name]
+```
+
+If merging needs a merge commit
+
 ```
 git commit -m "merging with upstream repo"
 
 git push origin master
 ```
-To address merge conflicts see below
 
 #### To delete a local branch from your machine
 
@@ -62,25 +71,38 @@ To address merge conflicts see below
 
 ## Commits
 
-### HEAD
-
 `HEAD` is the pointer to the current commit we're at in our Dev Environment.
 
 #### To view git commits
 
-`git log`
+```
+git log
+```
 
 #### To get the first commit
 
-`git rev-list HEAD | tail -n 1`
+```
+git rev-list HEAD | tail -n 1
+```
 
 #### To pretty format commits log
 
-`git log --pretty=format:"%h - %an, %ar : %s"`
+```
+git log --pretty=format:"%h - %an, %ar : %s"
+```
+
+#### To show git a nit form of git commits
+
+```
+git --no-pager log --oneline
+```
 
 #### To see the 'origin' remote github repository url
 
-`git config --get remote.origin.url`
+```
+git config --get remote.origin.url
+git remote get-url origin // alternate method
+```
 
 #### To undo your latest commit that you just pushed
 
@@ -98,27 +120,19 @@ If you have some local changes and unable to pull from upstream repository, dele
 
 ### Git Difference
 
-To see difference between:
+Ways to see difference between commits:
 
-#### Between HEAD and modified files in working directory:
+```
+git diff # Between HEAD and modified files in working directory
 
-`git diff`
+git diff --staged # Between HEAD and modified files in stage area
 
-#### Between HEAD and modified files in stage area:
+git diff <commit_hash> # Between HEAD and a specific commit
 
-`git diff --staged`
+git diff <commit1_hash> <commit2_hash> # Between two commits
 
-#### Between HEAD and a specific commit:
-
-`git diff <commit_hash>`
-
-#### Between two commits:
-
-`git diff <commit1_hash> <commit2_hash>`
-
-#### Between a commit and its previous commit
-
-`git diff <commit_hash>^!`
+git diff <commit_hash>^! # Between a commit and its previous commit
+```
 
 ## TAGS
 
@@ -142,7 +156,7 @@ To see difference between:
 
 `git push --delete origin <tagName>`
 
-## Merging
+## Merge
 
 ### Fast Forward merging
 
@@ -153,20 +167,20 @@ git checkout master
 git merge <branch_name_to_merge_with_master>
 ```
 
-![before merge](img/beforeMerge.png "Before Git Merge")
+![before merge](img/beforeMerge.png)
 `Before Git Merge`
 
-![after merge](img/afterMerge.png "After Git Merge") 
+![after merge](img/afterMerge.png) 
 `After Git Merge`
 
 ### Divergent Branches merging
 
 This is the case when both master and <branch-1> originated from the same commit, but since then they diverged, each having their own additional commit. Here a fast-forward merge is not possible. Instead git opens up an editor and allow you to type a message of the merge commit.
 
-![before diverge merge](img/beforeDivergeMerge.png "Before Divergent Branches Git Merge") 
+![before diverge merge](img/beforeDivergeMerge.png) 
 `Before Divergent Branches Git Merge`
 
-![after diverge merge](img/afterDivergeMerge.png "After Divergent Branches Git Merge") 
+![after diverge merge](img/afterDivergeMerge.png) 
 `After Divergent Branches Git Merge`
 
 Revisions in git, aren't only a snapshot of your files but also contain information on where they came from from. Each commit has one or more parent commits. Our new merge commit, has both the last commit from master and the commit we made on the other branch as it's parents.
@@ -224,6 +238,8 @@ git commit -m "Resolved merge conflict."
 ```
 
 #### To abort merge conflict (without commiting)
+
+In case anything goes wrong during merge conflict
 
 ```
 git commit --abort
@@ -285,27 +301,33 @@ git commit -m "message"
 git clean
 ```
 
-## Rebasing
+## Rebase
 
-`Rebase` offers a cleaner way of integrating divergent brancges than `Merge`.
+Suppose you sent a PR and before it gets merged, other commits were merged with the `master` branch. If you do `git merge` with your PR branch then mater looks something like:
 
-1. `Merge` introduces a merge commit in which the two histories get integrated again.
+![pr-merge](img/prMerge.png)
+When PR is merged, where C8 and C9 are the commits merged into master while your PR was in review phase.
 
-2. `Rebase` just changes the point in history (the commit) your branch is based on.
+The workflow just works fine with an additional merge commit. You need to fix any merge conflicts if required and it's good to go. But there might be cases where having a single merge commit containing all the changes to all your files probably isn’t what you want to expose in the end.
 
-#### To rebase a branch
+### Rebasing on the base branch
+
+Rebase is not a substitution of the merge. Hence rebase is not used to replace the merge, but it completes it.
 
 ```
-git checkout <branch-name>
+git checkout my-feature
 git rebase master
+git checkout master
+git merge my-feature --ff
 ```
-HEAD moves from current branch latest commit to the HEAD (latest commit) of master. Then rebase applies every single commit we made on current branch to that.
 
-To be more exact what git does after moving HEAD back to the common ancestor of the branches(master and current branch), is store parts of every single commit you've made on current branch (the diff of changes, and the commit text, author, etc.).
+`rebase` is used on the feature branch whereas `merge` is performed of the base branch.
 
-After that it does a checkout of the latest commit of the branch you're rebasing on, and then applies each of the stored changed as a new commit on top of that.
+![before-rebase](img/beforeRebase.png)
+`Before Rebase`
 
-All the divergent commits of our current branch is magically merged inside the `master` branch's HEAD commit and now our current branch HEAD points to a new commit whose ancestor is `master` branch HEAD.
+![after-rebase](img/afterRebase.png)
+`After Rebase`
 
 Rebase is an incredibly powerful tool when you're working on your own `development` branch which is based on a shared branch, e.g. the `master`.
 
@@ -343,6 +365,99 @@ You can also set `git pull` to use rebase by default:
 git config --global pull.rebase true
 ```
 
+### Rebasing your own work
+
+Rebase can be used to add/change/remove your commits directly from your own branch too! The “base” on which you rebase can be virtually any commit — even a direct ancestor. 
+
+Use "interactive mode" of rebase by adding `-i` or `-interactive` argument. By doing so, Git will open your editor of choice (the one defined in your `EDITOR` environment variable) and list all of the commits that will be affected by the rebase operation, and what should be done with every single one of them. 
+
+From your editor, Git lets you reorder, rename, or remove commits, but you can also split single commits into multiples, merge two or more commits together, or change their commit messages at the same time! Pretty much everything you’d like to do with your history is possible with `rebase`.
+
+
+Before rebasing:
+```
+$ git --no-pager log --oneline
+57f15b4 (HEAD -> master) add D and E files
+61681da add B file
+7d4a28d add C file
+f92bb1d add A
+78b3f67 root commit
+```
+
+You want following changes tot the last 4 commits:
+
+* The first commit message is wrong: it should be “add A file”, not “add A”
+* File B and C were added in the wrong order
+* File D should have been added at the same time as file C, not with file E
+* Finally, file E should be added in its own separate commit
+
+Start with `git rebase -i HEAD~4`. This tells Git to interactively rebase the last 4 commits from HEAD inclusive. `HEAD~4` points to the “root commit” which is the commit upon which we will rebase.
+
+Editor shows:
+
+```
+pick f92bb1d add A
+pick 7d4a28d add C file
+pick 61681da add B file
+pick 57f15b4 add D and E files
+
+# Rebase 78b3f67..57f15b4 onto 78b3f67 (4 commands)
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out
+```
+
+Modifications:
+```
+reword f92bb1d add A
+pick 61681da add B file
+pick 7d4a28d add C file
+edit 57f15b4 add D and E files
+```
+
+Instructions to Git:
+
+* Stop at the first commit to let us change the commit message
+* Reorder the second and third commit to have them in the correct order
+* Stop at the last commit to let us do some manual amending
+
+Upon saving the file and quitting your editor, you’ll be presented with your editor again, and the first commit message will be in front of you. The rebase is happening and you are being prompted to change the first commit message. Let’s change it from “add A” to “add A file”, then save and quit.
+
+The reordering of the second and third commits is done transparently by Git. This leaves us with the last amend we asked to perform. Here, we’re stopped after the “add D and E files” commit. As we wanted to create a single commit with C and D files and a new one only for E, we need to perform the following steps as if we were amending additional commits on the top of our branch:
+
+```
+git reset HEAD~1
+git add D
+git commit --amend -m ‘add C and D files’
+git add E
+git commit -m ‘add E file’
+git rebase --continue
+```
+
+After rebasing:
+```
+$ git --no-pager log --oneline
+2d6361f (HEAD -> master) add E file
+1e33d62 add C and D files
+180b4bd add B file
+eb6beee add A file
+78b3f67 root commit
+```
+
 ## Stash
 
 #### To stash changes
@@ -353,20 +468,30 @@ A git stash is basically a stack of changes on which you store any changes to th
 
 #### To bring back stashed changes by removing changes from the stash
 
-`git stash pop`
+```
+git stash pop
+```
 
 #### To bring back stashed changes without removing changes from the stash
 
-`git stash apply`
+```
+git stash apply
+```
 
 #### To inspect stash
 
-`git stash list`
+```
+git stash list
+```
 
 #### To show changes in the lastest entry on stash
 
-`git stash show`
+```
+git stash show
+```
 
 #### To create a new branch from the lastest entry on stash
 
-`git stash branch <branch-name>`
+```
+git stash branch <branch-name>
+```
