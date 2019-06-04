@@ -170,3 +170,27 @@ You can navigate among these views using `ctrl+w`. You can directly reach MERGED
 git commit -m "message"
 git clean
 ```
+
+## Difference
+
+#### To see difference 
+
+1. Between HEAD and modified files in working directory:
+
+`git diff`
+
+2. Between HEAD and modified files in stage area:
+
+`git diff --staged`
+
+3. Between HEAD and a specific commit:
+
+`git diff <commit_hash>`
+
+4. Between two commits:
+
+`git diff <commit1_hash> <commit2_hash>`
+
+5. Between a commit and its previous commit 
+
+`git diff <commit_hash>^!`
