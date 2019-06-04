@@ -152,16 +152,20 @@ git merge <branch_name_to_merge_with_master>
 ```
 
 ![before merge](img/beforeMerge.png "Before Git Merge")
+Before Git Merge
 
 ![after merge](img/afterMerge.png "After Git Merge") 
+After Git Merge
 
 ### Divergent Brancges merging
 
 This is the case when both master and <branch-1> originated from the same commit, but since then they diverged, each having their own additional commit. Here a fast-forward merge is not possible. Instead git opens up an editor and allow you to type a message of the merge commit.
 
 ![before diverge merge](img/beforeDivergeMerge.png "Before Divergent Branches Git Merge") 
+Before Divergent Branches Git Merge"
 
 ![after diverge merge](img/afterDivergeMerge.png "After Divergent Branches Git Merge") 
+After Divergent Branches Git Merge
 
 Revisions in git, aren't only a snapshot of your files but also contain information on where they came from from. Each commit has one or more parent commits. Our new merge commit, has both the last commit from master and the commit we made on the other branch as it's parents.
 
