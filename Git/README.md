@@ -157,7 +157,7 @@ git merge <branch_name_to_merge_with_master>
 ![after merge](img/afterMerge.png "After Git Merge") 
 `After Git Merge`
 
-### Divergent Brancges merging
+### Divergent Branches merging
 
 This is the case when both master and <branch-1> originated from the same commit, but since then they diverged, each having their own additional commit. Here a fast-forward merge is not possible. Instead git opens up an editor and allow you to type a message of the merge commit.
 
