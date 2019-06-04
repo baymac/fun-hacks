@@ -96,7 +96,7 @@ If you have some local changes and unable to pull from upstream repository, dele
 
 `git reset --hard origin/master`
 
-### To see difference 
+### To see difference
 
 #### Between HEAD and modified files in working directory:
 
@@ -114,7 +114,7 @@ If you have some local changes and unable to pull from upstream repository, dele
 
 `git diff <commit1_hash> <commit2_hash>`
 
-#### Between a commit and its previous commit 
+#### Between a commit and its previous commit
 
 `git diff <commit_hash>^!`
 
@@ -128,7 +128,7 @@ If you have some local changes and unable to pull from upstream repository, dele
 
 `git tag -a <tagname> -m <tagmessage>`
 
-#### To delete local tag 
+#### To delete local tag
 
 `git tag -d <tagName>`
 
@@ -143,7 +143,7 @@ If you have some local changes and unable to pull from upstream repository, dele
 ## Merging
 
 ### Fast Forward merging
- 
+
 There are no other conflicting changes to any files, and nothing changed on master, this will go through without a hitch in what is called a fast forward merge.
 
 ```
@@ -153,15 +153,15 @@ git merge <branch_name_to_merge_with_master>
 
 ![before merge](img/beforeMerge.png "Before Git Merge")
 
-![after merge](img/afterMerge.png "After Git Merge") 
+![after merge](img/afterMerge.png "After Git Merge")
 
 ### Divergent Brancges merging
 
 This is the case when both master and <branch-1> originated from the same commit, but since then they diverged, each having their own additional commit. Here a fast-forward merge is not possible. Instead git opens up an editor and allow you to type a message of the merge commit.
 
-![before diverge merge](img/beforeDivergeMerge.png "Before Divergent Branches Git Merge") 
+![before diverge merge](img/beforeDivergeMerge.png "Before Divergent Branches Git Merge")
 
-![after diverge merge](img/afterDivergeMerge.png "After Divergent Branches Git Merge") 
+![after diverge merge](img/afterDivergeMerge.png "After Divergent Branches Git Merge")
 
 Revisions in git, aren't only a snapshot of your files but also contain information on where they came from from. Each commit has one or more parent commits. Our new merge commit, has both the last commit from master and the commit we made on the other branch as it's parents.
 
@@ -169,7 +169,7 @@ Revisions in git, aren't only a snapshot of your files but also contain informat
 
 There are often times you face merge conflicts while merging branches. This generally due different changes to the same file(or files) in both branches. Git cannot resolve this for you, this needs to be done manually.
 
-#### Files affected: 
+#### Files affected:
 
 To see the list of file affected by merge conflict:
 
@@ -270,7 +270,7 @@ You can navigate among these views using `ctrl+w`. You can directly reach MERGED
 
 #### If you want to get changes from LOCAL
 
-`:diffg LO` 
+`:diffg LO`
 
 #### Save, Exit, Commit and Clean up
 ```
@@ -305,29 +305,37 @@ Rebase is an incredibly powerful tool when you're working on your own `developme
 
 Using rebase you can make sure that you frequently integrate the changes other people make and push to master, while keeping a clean linear history that allows you to do a fast-forward merge when it's time to get your work into the shared branch.
 
-### Resolving conflicts 
+### Resolving conflicts
 
-Just like for a merge you may run into conflicts, if you run into two commits changing the same parts of a file. However when you encounter a conflict during a rebase you don't fix it in an extra merge commit, but can simply resolve it in the commit that is currently being applied. 
-
-Unlike merge commit, you simply add the changes to the Staging Environment and then 
+It stops the current `rebase` and asks you to fix the conflict. The conflicting files will be marked  as “both modified” and the conflicting sections will have some markup to help you find what differs. When you’re done with the modifications, you then `git add` the modified files and run
 
 ```
 git rebase --continue
 ```
 
+to let the rebase continue.
+
 The conflict will be resolved in the commit that was just being applied.
 
 ### Abort Rebasing
 
-`git rebase --abort`
+In case rebase went wrong:
+
+```
+git rebase --abort
+```
 
 ### To pull with rebase
 
-`git pull -r`
+```
+git pull -r
+```
 
-or
+You can also set `git pull` to use rebase by default:
 
-`git config --global pull.rebase true`
+```
+git config --global pull.rebase true
+```
 
 ## Stash
 
