@@ -96,7 +96,9 @@ If you have some local changes and unable to pull from upstream repository, dele
 
 `git reset --hard origin/master`
 
-### To see difference 
+### Git Difference
+
+To see difference between:
 
 #### Between HEAD and modified files in working directory:
 
@@ -221,7 +223,7 @@ git add .
 git commit -m "Resolved merge conflict."
 ```
 
-#### Abort merge conflict (without commiting)
+#### To abort merge conflict (without commiting)
 
 ```
 git commit --abort
@@ -291,7 +293,7 @@ git clean
 
 2. `Rebase` just changes the point in history (the commit) your branch is based on.
 
-### To rebase a branch
+#### To rebase a branch
 
 ```
 git checkout <branch-name>
@@ -309,7 +311,7 @@ Rebase is an incredibly powerful tool when you're working on your own `developme
 
 Using rebase you can make sure that you frequently integrate the changes other people make and push to master, while keeping a clean linear history that allows you to do a fast-forward merge when it's time to get your work into the shared branch.
 
-### Resolving conflicts 
+#### Resolving conflicts 
 
 Just like for a merge you may run into conflicts, if you run into two commits changing the same parts of a file. However when you encounter a conflict during a rebase you don't fix it in an extra merge commit, but can simply resolve it in the commit that is currently being applied. 
 
@@ -321,11 +323,11 @@ git rebase --continue
 
 The conflict will be resolved in the commit that was just being applied.
 
-### Abort Rebasing
+#### To abort Rebasing
 
 `git rebase --abort`
 
-### To pull with rebase
+#### To pull with rebase
 
 `git pull -r`
 
@@ -335,28 +337,28 @@ or
 
 ## Stash
 
-### To stash changes
+#### To stash changes
 
 If at any point you have local changes that you do not yet want to put into a commit, or want to store somewhere while you try some different angle to solve a problem, you can stash those changes away.
 
 A git stash is basically a stack of changes on which you store any changes to the Working Directory.
 
-### To bring back stashed changes by removing changes from the stash
+#### To bring back stashed changes by removing changes from the stash
 
 `git stash pop`
 
-### To bring back stashed changes without removing changes from the stash
+#### To bring back stashed changes without removing changes from the stash
 
 `git stash apply`
 
-### To inspect stash
+#### To inspect stash
 
 `git stash list`
 
-### To show changes in the lastest entry on stash
+#### To show changes in the lastest entry on stash
 
 `git stash show`
 
-### To create a new branch from the lastest entry on stash
+#### To create a new branch from the lastest entry on stash
 
 `git stash branch <branch-name>`
