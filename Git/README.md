@@ -116,7 +116,9 @@ When you do a `git reset HEAD~1`, you tell Git to move the HEAD pointer back one
 
 If you have some local changes and unable to pull from upstream repository, delete your local changes.
 
-`git reset --hard origin/master`
+```
+git reset --hard origin/master
+```
 
 ### Git Difference
 
@@ -138,23 +140,33 @@ git diff <commit_hash>^! # Between a commit and its previous commit
 
 #### To create a basic tag
 
-`git tag <tagname>`
+```
+git tag <tagname>
+```
 
 #### To create an annotated tag with a message
 
-`git tag -a <tagname> -m <tagmessage>`
+```
+git tag -a <tagname> -m <tagmessage>
+```
 
 #### To delete local tag
 
-`git tag -d <tagName>`
+```
+git tag -d <tagName>
+```
 
 #### To delete remote tag '12345' (eg, GitHub version too)
 
-`git push origin :refs/tags/<tagName>`
+```
+git push origin :refs/tags/<tagName>
+```
 
 #### An alternative approach to delete remote tag
 
-`git push --delete origin <tagName>`
+```
+git push --delete origin <tagName>
+```
 
 ## Merge
 
@@ -205,7 +217,6 @@ git status
 > # both modified:      styleguide.md
 > #
 > no changes added to commit (use "git add" and/or "git commit -a")
-
 ```
 
 To see the beginning of the merge conflict in your file, search the file for the conflict marker `<<<<<<<`. When you open the file in your text editor, you'll see the changes from the HEAD or base branch after the line `<<<<<<<` HEAD. Next, you'll see `=======`, which divides your changes from the changes in the other branch, followed by `>>>>>>>` BRANCH-NAME. In this example, one person wrote "open an issue" in the base or HEAD branch and another person wrote "ask your question in IRC" in the compare branch or branch-a.
@@ -228,7 +239,9 @@ If you have questions, please open an issue or ask in our IRC channel if it's mo
 
 #### If you decide to remove the file:
 
-`git rm styleguide.md`
+```
+git rm styleguide.md
+```
 
 #### Commit the merge:
 
@@ -257,7 +270,9 @@ Other tools are meld, opendiff, kdiff3, tkdiff, xxdiff, tortoisemerge, gvimdiff,
 
 #### To run mergetool
 
-`git mergetool`
+```
+git mergetool
+```
 
 In the Terminal:
 ```
