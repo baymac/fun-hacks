@@ -63,11 +63,15 @@ git push origin master
 
 #### To delete a local branch from your machine
 
-`git branch -d {the_local_branch} (use -D instead to force deleting the branch without checking merged status)`
+```
+git branch -d {the_local_branch} (use -D instead to force deleting the branch without checking merged status)
+```
 
 #### To delete a remote branch from the server
 
-`git push origin --delete {the_remote_branch}`
+```
+git push origin --delete {the_remote_branch}
+```
 
 ## Commits
 
@@ -321,6 +325,7 @@ git clean
 Suppose you sent a PR and before it gets merged, other commits were merged with the `master` branch. If you do `git merge` with your PR branch then mater looks something like:
 
 ![pr-merge](img/prMerge.png)
+
 When PR is merged, where C8 and C9 are the commits merged into master while your PR was in review phase.
 
 The workflow just works fine with an additional merge commit. You need to fix any merge conflicts if required and it's good to go. But there might be cases where having a single merge commit containing all the changes to all your files probably isn’t what you want to expose in the end.
