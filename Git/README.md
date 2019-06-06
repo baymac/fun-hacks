@@ -189,16 +189,16 @@ git branch newbranchname
 
 Ways to see difference between commits:
 
-```
+```bash
 git diff # Between HEAD and modified files in working directory
 
 git diff --staged # Between HEAD and modified files in stage area
 
-git diff <commit_hash> # Between HEAD and a specific commit
+git diff {commit_hash} # Between HEAD and a specific commit
 
-git diff <commit1_hash> <commit2_hash> # Between two commits
+git diff {commit1_hash} {commit2_hash} # Between two commits
 
-git diff <commit_hash>^! # Between a commit and its previous commit
+git diff {commit_hash}^! # Between a commit and its previous commit
 ```
 
 ## TAGS
@@ -241,7 +241,7 @@ There are no other conflicting changes to any files, and nothing changed on mast
 
 ```
 git checkout master
-git merge <branch_name_to_merge_with_master>
+git merge {branch_name_to_merge_with_master}
 ```
 
 ![before merge](img/beforeMerge.png)
