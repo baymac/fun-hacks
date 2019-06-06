@@ -118,12 +118,39 @@ git log --pretty=format:"%h - %an, %ar : %s"
 git --no-pager log --oneline
 ```
 
-### Remove commits
+### Remove changes
 
-#### To remove files from staging area
+#### To remove files from the tree
+
+For example, you make a commit and notice a stray directory or file that shouldn’t be in the repo. First, add the file to `.gitignore`, and then:
 
 ```
-git reset
+git rm --cached <file-name>
+git rm --cached *.log # [alternative] Globbing is also possible as usual
+```
+
+#### To remove all unwanted changes from staged area (not committed yet)
+
+```
+git reset 
+git reset HEAD . # [alternative]
+```
+#### To remove specific file(s) changes from staged area (not committed yet)
+
+```
+git reset HEAD {file-name} 
+```
+
+#### To nuke everything from staged and unstaged area
+
+```
+git reset --hard
+```
+
+#### To remove all unwanted changes only from unstaged area
+
+```
+git checkout -- .
 ```
 
 #### To remove the last commit from git
