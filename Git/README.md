@@ -220,7 +220,7 @@ Revisions in git, aren't only a snapshot of your files but also contain informat
 
 There are often times you face merge conflicts while merging branches. This generally due different changes to the same file(or files) in both branches. Git cannot resolve this for you, this needs to be done manually.
 
-#### Files affected:
+#### Make changes:
 
 To see the list of file affected by merge conflict:
 
@@ -256,7 +256,7 @@ Decide if you want to keep only your branch's changes, keep only the other branc
 If you have questions, please open an issue or ask in our IRC channel if it's more urgent.
 ```
 
-#### If you decide to remove the file:
+In case you want remove the conflicted file:
 
 ```
 git rm styleguide.md
