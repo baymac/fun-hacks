@@ -45,39 +45,50 @@ git push -u origin [branch_name]
 
 #### To pull from remote branch:
 
-`git pull` which does a `git fetch` followed by a `git merge` to update the local repo with the remote repo
-
 ```
 git checkout master
 
 git pull [remote_name or remote_url] [branch_name]
 ```
 
-If merging needs a merge commit
+`git pull` does a `git fetch` followed by a `git merge` to update the local repo with the remote repo
 
-```
-git commit -m "merging with upstream repo"
-
-git push origin master
-```
+If merging needs a merge commit (or not a fast forward merge) then your editor opens up for a merge commit message.
 
 #### To delete a local branch from your machine
 
 ```
-git branch -d {the_local_branch} (use -D instead to force deleting the branch without checking merged status)
+git branch -d {branchname} # gives error if local branch not merged
+
+git branch -D {branchname} # force deletes the branch without checking merged status
 ```
 
 #### To delete a remote branch from the server
 
 ```
-git push origin --delete {the_remote_branch}
+git push origin --delete {remotebranch}
+```
+
+## Remote
+
+#### To see the 'origin' remote repository url
+
+```
+git config --get remote.origin.url
+git remote get-url origin // alternate method
+```
+
+#### To set the 'origin' remote repository url
+
+```
+git remote set-url origin <remote-rep-url>
 ```
 
 ## Commits
 
 `HEAD` is the pointer to the current commit we're at in our Dev Environment.
 
-#### To view git commits
+### To view git commits
 
 ```
 git log
@@ -89,39 +100,43 @@ git log
 git rev-list HEAD | tail -n 1
 ```
 
-#### To pretty format commits log
+#### To see a pretty format of commits log
 
 ```
 git log --pretty=format:"%h - %an, %ar : %s"
 ```
 
-#### To show git a nit form of git commits
+#### To see a nit form of commits log
 
 ```
 git --no-pager log --oneline
 ```
 
-#### To see the 'origin' remote github repository url
+### Remove commits
+
+#### To remove the last commit from git
 
 ```
-git config --get remote.origin.url
-git remote get-url origin // alternate method
+git reset --hard HEAD^
 ```
 
-#### To undo your latest commit that you just pushed
+#### To remove multiple commits from the top
+```
+git reset --hard HEAD~2
+```
+to remove the last two commits. You can increase the number to remove even more commits.
+
+#### To "uncommit" the commits while keeping the changes around for reworking, remove the "--hard": 
+```
+git reset HEAD^
+```
+which will evict the commits from the branch and from the index, but leave the working tree around.
+
+#### To save the commits on a new branch name before removing current branch commit(s)
 
 ```
-git reset HEAD~1
-
-git push -f origin master
-```
-
-When you do a `git reset HEAD~1`, you tell Git to move the HEAD pointer back one commit. This leaves your file modified but unstaged (to return file to previous commit use --hard option)
-
-If you have some local changes and unable to pull from upstream repository, delete your local changes.
-
-```
-git reset --hard origin/master
+git branch newbranchname
+git reset ...
 ```
 
 ### Git Difference
