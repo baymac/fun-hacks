@@ -29,8 +29,10 @@ git push -u origin master
 
 ```bash
 git branch {branch_name}
-git checkout -b {branch_name} # [alternative]
+git checkout -b {branch_name} # [alternative] 
 ```
+
+Should use the alternate method usually as it checks out to the new branch after creating the new branch which is an advantage as developers tend to forget checking out the new branch after creating and continue commiting into the current branch.
 
 #### To switch a branch:
 
