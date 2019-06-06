@@ -3,7 +3,7 @@ A reference to git commands and related theories:
 ## Initialise Git
 
 #### To create a local repo and pushing to github repo:
-```
+```bash
 echo "# shoppernet" >> README.md
 
 git init
@@ -27,26 +27,26 @@ git push -u origin master
 
 #### To create a new branch:
 
-```
+```bash
 git branch {branch_name}
 git checkout -b {branch_name} # [alternative]
 ```
 
 #### To switch a branch:
 
-```
+```bash
 git checkout {branch_name}
 ```
 
 #### To push a branch:
 
-```
+```bash
 git push -u origin {branch_name}
 ```
 
 #### To pull from remote branch:
 
-```
+```bash
 git checkout master
 
 git pull {remote_name or remote_url} {branch_name}
@@ -58,20 +58,20 @@ git pull {remote_name or remote_url} {branch_name}
 
 If merging needs a merge commit which will be the case if it is not a fast forward merge then your editor opens up for a merge commit message
 
-```
+```bash
 Type merge commit message
 ```
 
 #### To pull a remote pr branch:
 
-```
+```bash
 git fetch origin pull/ID/head:BRANCHNAME
 ```
 where `ID` is the pull request id
 
 #### To delete a local branch from your machine
 
-```
+```bash
 git branch -d {branchname} # gives error if local branch not merged
 
 git branch -D {branchname} # force deletes the branch without checking merged status
@@ -79,7 +79,7 @@ git branch -D {branchname} # force deletes the branch without checking merged st
 
 #### To delete a remote branch from the server
 
-```
+```bash
 git push origin --delete {remotebranch}
 ```
 
@@ -87,14 +87,14 @@ git push origin --delete {remotebranch}
 
 #### To see the 'origin' remote repository url
 
-```
+```bash
 git config --get remote.origin.url
 git remote get-url origin # [Alternate]
 ```
 
 #### To set the 'origin' remote repository url
 
-```
+```bash
 git remote set-url origin {remote-rep-url}
 ```
 
@@ -104,25 +104,25 @@ HEAD is the pointer to the current commit we're at in our Dev Environment.
 
 ### To view git commits
 
-```
+```bash
 git log
 ```
 
 #### To get the first commit
 
-```
+```bash
 git rev-list HEAD | tail -n 1
 ```
 
 #### To see a pretty format of commits log
 
-```
+```bash
 git log --pretty=format:"%h - %an, %ar : %s"
 ```
 
 #### To see a nit form of commits log
 
-```
+```bash
 git --no-pager log --oneline
 ```
 
@@ -132,56 +132,58 @@ git --no-pager log --oneline
 
 For example, you make a commit and notice a stray directory or file that shouldn’t be in the repo. First, add the file to `.gitignore`, and then:
 
-```
+```bash
 git rm --cached <file-name>
 git rm --cached *.log # [alternative] Globbing is also possible as usual
 ```
 
 #### To remove all unwanted changes from staged area (not committed yet)
 
-```
+```bash
 git reset 
 git reset HEAD . # [alternative]
 ```
 #### To remove specific file(s) changes from staged area (not committed yet)
 
-```
+```bash
 git reset HEAD {file-name} 
 ```
 
 #### To nuke everything from staged and unstaged area
 
-```
+```bash
 git reset --hard
 ```
 
 #### To remove all unwanted changes only from unstaged area
 
-```
+```bash
 git checkout -- .
 ```
 
 #### To remove the last commit from git
 
-```
+```bash
 git reset --hard HEAD^
 ```
 
 #### To remove multiple commits from the top
-```
+
+```bash
 git reset --hard HEAD~2
 ```
 to remove the last two commits. You can increase the number to remove even more commits.
 
 #### To "uncommit" the commits while keeping the changes around for reworking, remove the "--hard": 
-```
+
+```bash
 git reset HEAD^
 ```
 which will evict the commits from the branch and from the index, but leave the working tree around.
 
 #### To save the commits on a new branch name before performing git reset
 
-```
+```bash
 git branch newbranchname
 ```
 
@@ -205,31 +207,31 @@ git diff {commit_hash}^! # Between a commit and its previous commit
 
 #### To create a basic tag
 
-```
+```bash
 git tag {tagname}
 ```
 
 #### To create an annotated tag with a message
 
-```
+```bash
 git tag -a {tagname} -m {tagmessage}
 ```
 
 #### To delete local tag
 
-```
+```bash
 git tag -d {tagName}
 ```
 
 #### To delete remote tag '12345' (eg, GitHub version too)
 
-```
+```bash
 git push origin :refs/tags/{tagName}
 ```
 
 #### An alternative approach to delete remote tag
 
-```
+```bash
 git push --delete origin {tagName}
 ```
 
@@ -239,7 +241,7 @@ git push --delete origin {tagName}
 
 There are no other conflicting changes to any files, and nothing changed on master, this will go through without a hitch in what is called a fast forward merge.
 
-```
+```bash
 git checkout master
 git merge {branch_name_to_merge_with_master}
 ```
@@ -270,7 +272,7 @@ There are often times you face merge conflicts while merging branches. This gene
 
 To see the list of file affected by merge conflict:
 
-```
+```bash
 git status
 > # On branch branch-b
 > # You have unmerged paths.
@@ -286,7 +288,7 @@ git status
 
 To see the beginning of the merge conflict in your file, search the file for the conflict marker `<<<<<<<`. When you open the file in your text editor, you'll see the changes from the HEAD or base branch after the line `<<<<<<<` HEAD. Next, you'll see `=======`, which divides your changes from the changes in the other branch, followed by `>>>>>>>` BRANCH-NAME. In this example, one person wrote "open an issue" in the base or HEAD branch and another person wrote "ask your question in IRC" in the compare branch or branch-a.
 
-```
+```bash
 If you have questions, please
 <<<<<<< HEAD
 open an issue
@@ -298,19 +300,19 @@ ask your question in IRC.
 
 Decide if you want to keep only your branch's changes, keep only the other branch's changes, or make a brand new change, which may incorporate changes from both branches. Delete the conflict markers `<<<<<<<`, `=======`, `>>>>>>>` and make the changes you want in the final merge. In this example, both changes are incorporated into the final merge:
 
-```
+```bash
 If you have questions, please open an issue or ask in our IRC channel if it's more urgent.
 ```
 
 In case you want remove the conflicted file:
 
-```
+```bash
 git rm styleguide.md
 ```
 
 #### Commit the merge:
 
-```
+```bash
 git add .
 git commit -m "Resolved merge conflict."
 ```
@@ -319,14 +321,15 @@ git commit -m "Resolved merge conflict."
 
 In case anything goes wrong during merge conflict
 
-```
+```bash
 git commit --abort
 ```
 
 ### Using Mergetool
 
 #### To set vimdiff as default merge tool:
-```
+
+```bash
 git config merge.tool vimdiff
 git config merge.conflictstyle diff3
 git config mergetool.prompt false
@@ -335,7 +338,7 @@ Other tools are meld, opendiff, kdiff3, tkdiff, xxdiff, tortoisemerge, gvimdiff,
 
 #### To run mergetool
 
-```
+```bash
 git mergetool
 ```
 
@@ -364,18 +367,25 @@ You can navigate among these views using `ctrl+w`. You can directly reach MERGED
 
 #### If you want to get changes from REMOTE
 
-`:diffg RE`
+```bash
+:diffg RE
+```
 
 #### If you want to get changes from BASE
 
-`:diffg BA`  
+```bash
+:diffg BA
+```  
 
 #### If you want to get changes from LOCAL
 
-`:diffg LO`
+```bash
+:diffg LO
+```
 
 #### Save, Exit, Commit and Clean up
-```
+
+```bash
 :wqa save and exit from vi
 git commit -m "message"
 git clean
@@ -395,7 +405,7 @@ The workflow just works fine with an additional merge commit. You need to fix an
 
 Rebase is not a substitution of the merge. Hence rebase is not used to replace the merge, but it completes it.
 
-```
+```bash
 git checkout my-feature
 git rebase master
 git checkout master
@@ -418,7 +428,7 @@ Using rebase you can make sure that you frequently integrate the changes other p
 
 It stops the current `rebase` and asks you to fix the conflict. The conflicting files will be marked  as “both modified” and the conflicting sections will have some markup to help you find what differs. When you’re done with the modifications, you then `git add` the modified files and run
 
-```
+```bash
 git rebase --continue
 ```
 
@@ -430,19 +440,19 @@ The conflict will be resolved in the commit that was just being applied.
 
 In case rebase went wrong:
 
-```
+```bash
 git rebase --abort
 ```
 
 #### To pull with rebase
 
-```
+```bash
 git pull -r
 ```
 
 You can also set `git pull` to use rebase by default:
 
-```
+```bash
 git config --global pull.rebase true
 ```
 
@@ -456,7 +466,8 @@ From your editor, Git lets you reorder, rename, or remove commits, but you can a
 
 
 Before rebasing:
-```
+
+```bash
 $ git --no-pager log --oneline
 57f15b4 (HEAD -> master) add D and E files
 61681da add B file
@@ -476,7 +487,7 @@ Start with `git rebase -i HEAD~4`. This tells Git to interactively rebase the la
 
 Editor shows:
 
-```
+```bash
 pick f92bb1d add A
 pick 7d4a28d add C file
 pick 61681da add B file
@@ -503,7 +514,8 @@ pick 57f15b4 add D and E files
 ```
 
 Modifications:
-```
+
+```bash
 reword f92bb1d add A
 pick 61681da add B file
 pick 7d4a28d add C file
@@ -520,7 +532,7 @@ Upon saving the file and quitting your editor, you’ll be presented with your e
 
 The reordering of the second and third commits is done transparently by Git. This leaves us with the last amend we asked to perform. Here, we’re stopped after the “add D and E files” commit. As we wanted to create a single commit with C and D files and a new one only for E, we need to perform the following steps as if we were amending additional commits on the top of our branch:
 
-```
+```bash
 git reset HEAD~1
 git add D
 git commit --amend -m ‘add C and D files’
@@ -530,7 +542,8 @@ git rebase --continue
 ```
 
 After rebasing:
-```
+
+```bash
 $ git --no-pager log --oneline
 2d6361f (HEAD -> master) add E file
 1e33d62 add C and D files
@@ -549,30 +562,30 @@ A git stash is basically a stack of changes on which you store any changes to th
 
 #### To bring back stashed changes by removing changes from the stash
 
-```
+```bash
 git stash pop
 ```
 
 #### To bring back stashed changes without removing changes from the stash
 
-```
+```bash
 git stash apply
 ```
 
 #### To inspect stash
 
-```
+```bash
 git stash list
 ```
 
 #### To show changes in the lastest entry on stash
 
-```
+```bash
 git stash show
 ```
 
 #### To create a new branch from the lastest entry on stash
 
-```
+```bash
 git stash branch <branch-name>
 ```
