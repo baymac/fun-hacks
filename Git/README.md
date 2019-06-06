@@ -28,19 +28,20 @@ git push -u origin master
 #### To create a new branch:
 
 ```
-git branch [branch_name]
+git branch {branch_name}
+git checkout -b {branch_name} # [alternative]
 ```
 
 #### To switch a branch:
 
 ```
-git checkout [branch_name]
+git checkout {branch_name}
 ```
 
 #### To push a branch:
 
 ```
-git push -u origin [branch_name]
+git push -u origin {branch_name}
 ```
 
 #### To pull from remote branch:
@@ -48,7 +49,7 @@ git push -u origin [branch_name]
 ```
 git checkout master
 
-git pull [remote_name or remote_url] [branch_name]
+git pull {remote_name or remote_url} {branch_name}
 ```
 
 `git pull` does a `git fetch` followed by a `git merge` to update the local repo with the remote repo
@@ -60,6 +61,13 @@ If merging needs a merge commit which will be the case if it is not a fast forwa
 ```
 Type merge commit message
 ```
+
+#### To pull a remote pr branch:
+
+```
+git fetch origin pull/ID/head:BRANCHNAME
+```
+where `ID` is the pull request id
 
 #### To delete a local branch from your machine
 
@@ -81,13 +89,13 @@ git push origin --delete {remotebranch}
 
 ```
 git config --get remote.origin.url
-git remote get-url origin // alternate method
+git remote get-url origin # [Alternate]
 ```
 
 #### To set the 'origin' remote repository url
 
 ```
-git remote set-url origin <remote-rep-url>
+git remote set-url origin {remote-rep-url}
 ```
 
 ## Commits
@@ -198,31 +206,31 @@ git diff <commit_hash>^! # Between a commit and its previous commit
 #### To create a basic tag
 
 ```
-git tag <tagname>
+git tag {tagname}
 ```
 
 #### To create an annotated tag with a message
 
 ```
-git tag -a <tagname> -m <tagmessage>
+git tag -a {tagname} -m {tagmessage}
 ```
 
 #### To delete local tag
 
 ```
-git tag -d <tagName>
+git tag -d {tagName}
 ```
 
 #### To delete remote tag '12345' (eg, GitHub version too)
 
 ```
-git push origin :refs/tags/<tagName>
+git push origin :refs/tags/{tagName}
 ```
 
 #### An alternative approach to delete remote tag
 
 ```
-git push --delete origin <tagName>
+git push --delete origin {tagName}
 ```
 
 ## Merge
