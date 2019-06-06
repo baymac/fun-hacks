@@ -53,7 +53,13 @@ git pull [remote_name or remote_url] [branch_name]
 
 `git pull` does a `git fetch` followed by a `git merge` to update the local repo with the remote repo
 
-If merging needs a merge commit (or not a fast forward merge) then your editor opens up for a merge commit message.
+#### To merge git pull changes
+
+If merging needs a merge commit which will be the case if it is not a fast forward merge then your editor opens up for a merge commit message
+
+```
+Type merge commit message
+```
 
 #### To delete a local branch from your machine
 
@@ -86,7 +92,7 @@ git remote set-url origin <remote-rep-url>
 
 ## Commits
 
-`HEAD` is the pointer to the current commit we're at in our Dev Environment.
+HEAD is the pointer to the current commit we're at in our Dev Environment.
 
 ### To view git commits
 
