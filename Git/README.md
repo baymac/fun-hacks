@@ -120,6 +120,12 @@ git --no-pager log --oneline
 
 ### Remove commits
 
+#### To remove files from staging area
+
+```
+git reset
+```
+
 #### To remove the last commit from git
 
 ```
@@ -138,11 +144,10 @@ git reset HEAD^
 ```
 which will evict the commits from the branch and from the index, but leave the working tree around.
 
-#### To save the commits on a new branch name before removing current branch commit(s)
+#### To save the commits on a new branch name before performing git reset
 
 ```
 git branch newbranchname
-git reset ...
 ```
 
 ### Git Difference
