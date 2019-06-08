@@ -591,3 +591,42 @@ git stash show
 ```bash
 git stash branch <branch-name>
 ```
+
+## Recommendations
+
+### Linefeeds
+
+#### Linefeeds at the end of each file
+
+Add an extra line at the end of each file. It is a practise made by UNIX systems.
+
+#### Issues with linefeeds when collaboration is done on cross platforms (linux, windows)
+
+In Unix systems the end of a line is represented with a line feed (LF). In windows a line is represented with a carriage return (CR) and a line feed (LF) thus (CRLF). You might receive an error like 
+
+```
+warning: LF will be replaced by CRLF in {file_name}
+The file will have its original line endings in your working directory.
+```
+
+If you’re programming on Windows and working with people who are not (or vice-versa), you’ll probably run into line-ending issues at some point. This is because Windows uses both a carriage-return character and a linefeed character for newlines in its files, whereas Mac and Linux systems use only the linefeed character. This is a subtle but incredibly annoying fact of cross-platform work; many editors on Windows silently replace existing LF-style line endings with CRLF, or insert both line-ending characters when the user hits the enter key.
+
+Git can handle this by auto-converting CRLF line endings into LF when you add a file to the index, and vice versa when it checks out code onto your filesystem. You can turn on this functionality with the core.autocrlf setting.
+
+In windows:
+
+```
+git config --global core.autocrlf true
+```
+
+If you’re on a Linux or Mac system that uses LF line endings, then you don’t want Git to automatically convert them when you check out files; however, if a file with CRLF endings accidentally gets introduced, then you may want Git to fix it. You can tell Git to convert CRLF to LF on commit but not the other way around by setting core.autocrlf to input:
+
+```
+git config --global core.autocrlf input
+```
+
+If you’re a Windows programmer doing a Windows-only project, then you can turn off this functionality, recording the carriage returns in the repository by setting the config value to false:
+
+```
+git config --global core.autocrlf false
+```
