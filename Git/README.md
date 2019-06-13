@@ -568,6 +568,12 @@ eb6beee add A file
 78b3f67 root commit
 ```
 
+Read more about rebase:
+
+https://git-scm.com/docs/git-rebase
+
+https://git-scm.com/docs/git-rebase
+
 ## Stash
 
 #### To stash changes
