@@ -110,6 +110,12 @@ HEAD is the pointer to the current commit we're at in our Dev Environment.
 git log
 ```
 
+### To add and commit everything
+
+```bash
+git commit -am <message>
+```
+
 #### To get the first commit
 
 ```bash
@@ -167,7 +173,7 @@ git reset --hard / git clean -f
 
 ```bash
 git checkout -- .
-git clean -f # alternative
+git clean -f # [alternative]
 ```
 
 #### To remove the last commit from git
@@ -639,7 +645,7 @@ If you’re a Windows programmer doing a Windows-only project, then you can turn
 git config --global core.autocrlf false
 ```
 
-You may alternate want to add a file `.gitattributes` with the following content:
+You may alternatively want to add a file `.gitattributes` with the following content:
 
 ```bash
 * text=auto eol=lf
