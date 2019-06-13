@@ -125,7 +125,7 @@ git log --pretty=format:"%h - %an, %ar : %s"
 #### To see a nit form of commits log
 
 ```bash
-git --no-pager log --oneline
+git log --oneline
 ```
 
 ### Remove changes
@@ -139,7 +139,7 @@ git rm --cached <file-name>
 git rm --cached *.log # [alternative] Globbing is also possible as usual
 ```
 
-#### To remove all unwanted changes from staged area (not committed yet)
+#### To remove everything changes from staged area (not committed yet)
 
 ```bash
 git reset 
@@ -157,10 +157,17 @@ git reset HEAD {file-name}
 git reset --hard
 ```
 
-#### To remove all unwanted changes only from unstaged area
+#### Permanently undo uncommitted changes
+
+```bash
+git reset --hard / git clean -f
+```
+
+#### To remove everything from unstaged area
 
 ```bash
 git checkout -- .
+git clean -f # alternative
 ```
 
 #### To remove the last commit from git
@@ -188,6 +195,7 @@ which will evict the commits from the branch and from the index, but leave the w
 ```bash
 git branch newbranchname
 ```
+
 
 ### Git Difference
 
@@ -602,8 +610,6 @@ Add an extra line at the end of each file. It is a practise made by UNIX systems
 
 #### Issues with linefeeds when collaboration is done on cross platforms (linux, windows)
 
-In Unix systems the end of a line is represented with a line feed (LF). In windows a line is represented with a carriage return (CR) and a line feed (LF) thus (CRLF). You might receive an error like 
-
 ```
 warning: LF will be replaced by CRLF in {file_name}
 The file will have its original line endings in your working directory.
@@ -611,15 +617,17 @@ The file will have its original line endings in your working directory.
 
 If you’re programming on Windows and working with people who are not (or vice-versa), you’ll probably run into line-ending issues at some point. This is because Windows uses both a carriage-return character and a linefeed character for newlines in its files, whereas Mac and Linux systems use only the linefeed character. This is a subtle but incredibly annoying fact of cross-platform work; many editors on Windows silently replace existing LF-style line endings with CRLF, or insert both line-ending characters when the user hits the enter key.
 
-Git can handle this by auto-converting CRLF line endings into LF when you add a file to the index, and vice versa when it checks out code onto your filesystem. You can turn on this functionality with the core.autocrlf setting.
+windows:
 
-In windows:
+To auto-converting CRLF line endings into LF when you add a file to the index, and vice versa when it checks out code onto your filesystem
 
 ```
 git config --global core.autocrlf true
 ```
 
-If you’re on a Linux or Mac system that uses LF line endings, then you don’t want Git to automatically convert them when you check out files; however, if a file with CRLF endings accidentally gets introduced, then you may want Git to fix it. You can tell Git to convert CRLF to LF on commit but not the other way around by setting core.autocrlf to input:
+linux and mac:
+
+To convert CRLF to LF on commit but not the other way around by setting core.autocrlf to input:
 
 ```
 git config --global core.autocrlf input
@@ -629,4 +637,10 @@ If you’re a Windows programmer doing a Windows-only project, then you can turn
 
 ```
 git config --global core.autocrlf false
+```
+
+You may alternate want to add a file `.gitattributes` with the following content:
+
+```bash
+* text=auto eol=lf
 ```
