@@ -110,12 +110,6 @@ HEAD is the pointer to the current commit we're at in our Dev Environment.
 git log
 ```
 
-### To add and commit everything
-
-```bash
-git commit -am <message>
-```
-
 #### To get the first commit
 
 ```bash
@@ -133,6 +127,29 @@ git log --pretty=format:"%h - %an, %ar : %s"
 ```bash
 git log --oneline
 ```
+
+### To add and commit everything
+
+```bash
+git commit -am <message>
+```
+
+### To change HEAD commit without editing commit message
+
+First, make necessary changes.
+
+```bash
+git add .
+git commit --amend --no-edit
+```
+
+### To change HEAD commit
+
+```bash
+git add .
+git commit --amend
+```
+Then type the new commit message and save it.
 
 ### Remove changes
 
