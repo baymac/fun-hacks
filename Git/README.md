@@ -673,3 +673,41 @@ You may alternatively want to add a file `.gitattributes` with the following con
 ```bash
 * text=auto eol=lf
 ```
+
+## Alias
+
+### Shell alias
+
+To create a alias for any command on bash add the alias command to `.bashrc`. For example,
+
+```bash
+alias gitamend='git commit --amend --no-edit'
+```
+
+The benefit of the shell alias way is that it can do everything a shell can, e.g. piping commands, executing sub-shells, etc.
+
+### Git alias
+
+Git also offers an aliasing feature by itself, through the `git config` command.
+
+```bash
+git config alias.<shortcut> <command>
+```
+
+For example,
+
+```bash
+git config alias.amend 'commit --amend --no-edit'
+```
+
+This way only configures the shortcut in the current Git repository. To be able to call it regardless of the repository, use the usual `--global` option:
+
+```bash
+git config --global alias.amend 'commit --amend --no-edit'
+```
+
+It’s also possible to call external binaries, by prefixing it with `!`:
+
+```bash
+git config alias.sourcetree '!/Applications/SourceTree.app/Contents/MacOS/Sourcetree'
+```
