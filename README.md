@@ -1,2 +1,2 @@
-# awesome-scripts
-A list of scripts in different languages
+# Fun Hacks
+A list of awesome hacks and scripts I wrote in different languages.
