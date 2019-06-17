@@ -100,6 +100,18 @@ git remote get-url origin # [Alternate]
 git remote set-url origin {remote-rep-url}
 ```
 
+#### To add a remote
+
+```bash
+git remote add <remote-name> <remote-url>
+```
+
+#### To get the list of remotes
+
+```bash
+git remote -v
+```
+
 ## Commits
 
 HEAD is the pointer to the current commit we're at in our Dev Environment.
@@ -218,7 +230,6 @@ which will evict the commits from the branch and from the index, but leave the w
 ```bash
 git branch newbranchname
 ```
-
 
 ### Git Difference
 
