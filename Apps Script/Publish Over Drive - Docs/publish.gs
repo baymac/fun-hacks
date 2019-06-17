@@ -45,17 +45,16 @@ function generatePdf() {
 function publishOverDrive(docblob) {
   
   var parentFolder = DriveApp.getRootFolder();
-  var folder, folders = parentFolder.getFoldersByName('Proposal');
+  var folder, folders = parentFolder.getFoldersByName('Proposal'); // TODO: change the folder name
   var file;
   
   if (folders.hasNext()) {
     folder = folders.next();
   } else {
-    folder = parentFolder.createFolder('Proposal'); 
+    folder = parentFolder.createFolder('Proposal'); // TODO: change the folder name
   }
   
   var existing = folder.getFilesByName(docblob.getName());
-  
   
   if (existing.hasNext()) {
   

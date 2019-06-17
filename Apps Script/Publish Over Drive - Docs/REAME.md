@@ -1,68 +1,22 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <base target="_top">
-    <script>
-      function updateUrl(url) {
-        displayMessage("Successfully Uploaded");
-        var div = document.getElementById('show-link');
-        div.innerHTML = '<a href="' + url + '">View PDF</a>';
-        div.style.display = 'block';
-      }
-      
-      function askPerm() {
-        var p = document.getElementById('prompt');
-        p.innerHTML = "Do you want to save this PDF?";
-        var div = document.getElementById('show-yes-no');
-        div.innerHTML =
-        '<input type="button" value="Yes" onclick="handleYesClick()" />'
-        + '<input type="button" value="No" onclick="handleNoClick()" />';
-      }
-      
-      function clear() {
-        var p = document.getElementById('prompt');
-        p.innerHTML = '';
-        var div = document.getElementById('show-yes-no');
-        div.innerHTML = '';
-        var div = document.getElementById('show-link');
-        div.style.display = 'none';
-      }
-      
-      function displayMessage(msg) {
-        clear();
-        var p = document.getElementById('prompt');
-        p.innerHTML = msg;
-      }      
+# Publish Over Drive
 
-      function handlePublishClick() {
-        clear();
-        askPerm();    
-      }
-      
-      function handleYesClick() {
-        displayMessage("Uploading..");
-        google.script.run
-          .withSuccessHandler(updateUrl)
-          .upload();
-       }
-       
-       function handleNoClick() {
-         displayMessage("Cancelled");
-         var div = document.getElementById('show-link');
-         div.style.display = 'block';
-       }
-      
-    </script>
-  </head>
-  <body>
-    <input type="button" value="Publish PDF"
-        onclick="handlePublishClick()" />
-    <p id="prompt"></p>
-    <div id="show-yes-no">
-    </div>
-    <div id="show-link">
-    </div>
-  </body>
-</html>
+This is an App Script that let's you publish your Docs to Drive as pdf.
 
+In your Google Docs:
 
+1) Select `Tools` -> `Script Editor`
+
+2) Add the two files `publish.gs` and `sidebar.html` with it's content.
+
+Modify the folder name where you want to save your pdf. In this case it is with the name `Proposal`,
+change to your desired name. 
+
+3) Save both files and close `Script Editor`
+
+4) Now refresh your docs, wait for 5-10s for the script to load
+
+5) Select `Add-ons` -> `Publish Over Drive` -> `Start Workflow`
+
+6) Side bar appears and you if you are running the app for the first time, it will ask permission for your app to access drive, select `allow`
+
+7) Select `Publish PDF` -> `Yes`. It will return the link your pdf after upload is finish.

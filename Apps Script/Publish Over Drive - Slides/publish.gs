@@ -5,7 +5,7 @@
  */
 
 function onOpen(e) {
-  var menu = DocumentApp.getUi().createAddonMenu();
+  var menu = SlidesApp.getUi().createAddonMenu();
   Logger.log(e.authMode);
   menu.addItem('Start workflow', 'showBar');
   menu.addToUi();
@@ -18,12 +18,11 @@ function onInstall(e) {
 function showBar() {
   var ui = HtmlService.createHtmlOutputFromFile('sidebar')
       .setTitle('Publish Over Drive');
-  DocumentApp.getUi().showSidebar(ui);
+  SlidesApp.getUi().showSidebar(ui);
 }
 
 function upload() {
   Logger.log("started uploading..")
-  var ui = DocumentApp.getUi();
   var blob = generatePdf();
   
   var url = "xxx";
@@ -34,28 +33,27 @@ function upload() {
 }
 
 function generatePdf() {
-  var ui = DocumentApp.getUi();
-  var doc = DocumentApp.getActiveDocument();
-  
-  docblob = DocumentApp.getActiveDocument().getAs('application/pdf');
-  docblob.setName(doc.getName() + ".pdf");
-  return docblob;
+  var id = SlidesApp.getActivePresentation().getId();
+  var slideblob = DriveApp.getFileById(id).getAs('application/pdf');
+  var name = SlidesApp.getActivePresentation().getName();
+  Logger.log(slideblob)
+  slideblob.setName(name + ".pdf");
+  return slideblob;
 }
 
-function publishOverDrive(docblob) {
+function publishOverDrive(slideblob) {
   
   var parentFolder = DriveApp.getRootFolder();
-  var folder, folders = parentFolder.getFoldersByName('Proposal');
+  var folder, folders = parentFolder.getFoldersByName('slides'); // TODO: change the folder name
   var file;
   
   if (folders.hasNext()) {
     folder = folders.next();
   } else {
-    folder = parentFolder.createFolder('Proposal'); 
+    folder = parentFolder.createFolder('slides'); // TODO: change the folder name
   }
   
-  var existing = folder.getFilesByName(docblob.getName());
-  
+  var existing = folder.getFilesByName(slideblob.getName());
   
   if (existing.hasNext()) {
   
@@ -63,10 +61,10 @@ function publishOverDrive(docblob) {
     
     Drive.Files.update({
       title: file.getName(), mimeType: file.getMimeType()
-    }, file.getId(), docblob);
+    }, file.getId(), slideblob);
     
   } else {
-    file = folder.createFile(docblob);
+    file = folder.createFile(slideblob);
   }
   Logger.log(file.getUrl());
   return file.getUrl();

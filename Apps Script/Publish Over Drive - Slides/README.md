@@ -1,72 +1,24 @@
- /**
- * @OnlyCurrentDoc
- * The event handler triggered when opening the spreadsheet.
- * @param {Event} e The onOpen event.
- */
+# Publish Over Drive
 
-function onOpen(e) {
-  var menu = SlidesApp.getUi().createAddonMenu();
-  Logger.log(e.authMode);
-  menu.addItem('Start workflow', 'showBar');
-  menu.addToUi();
-}
+This is an App Script that let's you publish your Slide to Drive as pdf.
 
-function onInstall(e) {
-  onOpen(e);
-}
+In your Google Docs:
 
-function showBar() {
-  var ui = HtmlService.createHtmlOutputFromFile('sidebar')
-      .setTitle('Drive Upload');
-  SlidesApp.getUi().showSidebar(ui);
-}
+1) Select `Tools` -> `Script Editor`
 
-function upload() {
-  Logger.log("started uploading..")
-  var blob = generatePdf();
-  
-  var url = "xxx";
-  
-  url = publishOverDrive(blob);
-  
-  return url;
-}
+2) Add the two files `publish.gs` and `sidebar.html` with it's content.
 
-function generatePdf() {
-  var id = SlidesApp.getActivePresentation().getId();
-  var slideblob = DriveApp.getFileById(id).getAs('application/pdf');
-  var name = SlidesApp.getActivePresentation().getName();
-  Logger.log(slideblob)
-  slideblob.setName(name + ".pdf");
-  return slideblob;
-}
+Modify the folder name where you want to save your pdf. In this case it is with the name `Slides`,
+change to your desired name. 
 
-function publishOverDrive(slideblob) {
-  
-  var parentFolder = DriveApp.getRootFolder();
-  var folder, folders = parentFolder.getFoldersByName('slides');
-  var file;
-  
-  if (folders.hasNext()) {
-    folder = folders.next();
-  } else {
-    folder = parentFolder.createFolder('slides'); 
-  }
-  
-  var existing = folder.getFilesByName(slideblob.getName());
-  
-  
-  if (existing.hasNext()) {
-  
-    file = existing.next(); 
-    
-    Drive.Files.update({
-      title: file.getName(), mimeType: file.getMimeType()
-    }, file.getId(), slideblob);
-    
-  } else {
-    file = folder.createFile(slideblob);
-  }
-  Logger.log(file.getUrl());
-  return file.getUrl();
-}
+3) Save both files and close `Script Editor`
+
+4) Now refresh your docs, wait for 5-10s for the script to load
+
+5) Select `Add-ons` -> `Publish Over Drive` -> `Start Workflow`
+
+6) Side bar appears and you if you are running the app for the first time, it will ask permission for your app to access drive, select `allow`
+
+7) Select `Publish PDF` -> `Yes`. It will return the link your pdf after upload is finish.
+
+This code is almost similar to `Docs add-on` just a little bit of hack in the manner of getting the `pdf` version of the slides programmatically.
