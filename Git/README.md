@@ -219,6 +219,7 @@ git clean -f # [alternative]
 ```bash
 git reset --hard HEAD^ # remove last commit
 git reset --hard HEAD~2 # remove last 2 commits
+git reset --hard <commit_hash> # remove all commits before this commit
 ```
 
 The `git reset HEAD~2` command moves the current branch backward by two commits, effectively removing the two snapshots we just created from the project history. Remember that this kind of reset should only be used on unpublished commits. Never perform the above operation if you’ve already pushed your commits to a shared repository.
