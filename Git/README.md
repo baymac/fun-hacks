@@ -178,6 +178,8 @@ If `git revert` is a “safe” way to undo changes, you can think of `git reset
 Reverting is designed to safely undo a public commit, git reset is designed to undo local changes to the Staging Index and Working Directory. 
 
 You should never use `git reset <commit>` when any snapshots after <commit> have been pushed to a public repository. After publishing a commit, you have to assume that other developers are reliant upon it. The point is, make sure that you’re using git reset <commit> on a local experiment that went wrong—not on published changes. If you need to fix a public commit, the git revert command was designed specifically for this purpose.
+  
+Read more about `git reset` in [demystifying reset](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified).
 
 #### To remove files from the tree
 
