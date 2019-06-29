@@ -25,6 +25,12 @@ git push -u origin master
 
 ## Branches
 
+#### To see the list of branches in local repository:
+
+```bash
+git branch
+```
+
 #### To create a new branch:
 
 ```bash
@@ -67,7 +73,7 @@ Type merge commit message
 #### To pull a remote pr branch:
 
 ```bash
-git fetch origin pull/ID/head:BRANCHNAME
+git fetch origin pull/<ID>/head:BRANCHNAME
 ```
 where `ID` is the pull request id
 
@@ -87,6 +93,12 @@ git push origin --delete {remotebranch}
 
 ## Remote
 
+#### To add a remote
+
+```bash
+git remote add <remote-name> <remote-url>
+```
+
 #### To see the 'origin' remote repository url
 
 ```bash
@@ -98,12 +110,6 @@ git remote get-url origin # [Alternate]
 
 ```bash
 git remote set-url origin {remote-rep-url}
-```
-
-#### To add a remote
-
-```bash
-git remote add <remote-name> <remote-url>
 ```
 
 #### To get the list of remotes
@@ -165,6 +171,14 @@ Then type the new commit message and save it.
 
 ### Remove changes
 
+#### Resetting vs Reverting
+
+If `git revert` is a “safe” way to undo changes, you can think of `git reset` as the dangerous method. There is a real risk of losing work with `git reset`. Git reset will never delete a commit, however, commits can become 'orphaned' which means there is no direct path from a ref to access them. These orphaned commits can usually be found and restored using `git reflog`. Git will permanently delete any orphaned commits after it runs the internal garbage collector. 
+
+Reverting is designed to safely undo a public commit, git reset is designed to undo local changes to the Staging Index and Working Directory. 
+
+You should never use `git reset <commit>` when any snapshots after <commit> have been pushed to a public repository. After publishing a commit, you have to assume that other developers are reliant upon it. The point is, make sure that you’re using git reset <commit> on a local experiment that went wrong—not on published changes. If you need to fix a public commit, the git revert command was designed specifically for this purpose.
+
 #### To remove files from the tree
 
 For example, you make a commit and notice a stray directory or file that shouldn’t be in the repo. First, add the file to `.gitignore`, and then:
@@ -190,42 +204,33 @@ git reset HEAD {file-name}
 
 ```bash
 git reset --hard
+git reset --hard / git clean -f # [alternative]
 ```
 
-#### Permanently undo uncommitted changes
+#### To dicard changes from unstaged area (working dir)
 
 ```bash
-git reset --hard / git clean -f
-```
-
-#### To remove everything from unstaged area
-
-```bash
-git checkout -- .
+git checkout -- 
 git clean -f # [alternative]
 ```
 
-#### To remove the last commit from git
+#### To remove commits from git
 
 ```bash
-git reset --hard HEAD^
+git reset --hard HEAD^ # remove last commit
+git reset --hard HEAD~2 # remove last 2 commits
 ```
 
-#### To remove multiple commits from the top
-
-```bash
-git reset --hard HEAD~2
-```
-to remove the last two commits. You can increase the number to remove even more commits.
+The `git reset HEAD~2` command moves the current branch backward by two commits, effectively removing the two snapshots we just created from the project history. Remember that this kind of reset should only be used on unpublished commits. Never perform the above operation if you’ve already pushed your commits to a shared repository.
 
 #### To "uncommit" the commits while keeping the changes around for reworking, remove the "--hard": 
 
 ```bash
 git reset HEAD^
 ```
-which will evict the commits from the branch and from the index, but leave the working tree around.
+which will remove the commit (or commits) from the branch and from the index, but leave the working dir around.
 
-#### To save the commits on a new branch name before performing git reset
+#### [TRIVIAL] To save the commits on a new branch name before performing git reset
 
 ```bash
 git branch newbranchname
@@ -249,6 +254,14 @@ git diff {commit_hash}^! # Between a commit and its previous commit
 
 ## TAGS
 
+#### To see all the tags in local repository:
+
+```bash
+git tag (with optional -l or --list )
+git tag -l <pattern>
+git tag -n # shows first line of annotation message
+```
+
 #### To create a basic tag
 
 ```bash
@@ -259,6 +272,13 @@ git tag {tagname}
 
 ```bash
 git tag -a {tagname} -m {tagmessage}
+```
+
+#### To push tags to origin repository
+
+```bash
+git push --tags
+git push origin <tag-name>
 ```
 
 #### To delete local tag
