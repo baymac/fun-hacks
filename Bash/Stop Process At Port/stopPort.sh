@@ -5,7 +5,7 @@
 
 port=$1
 
-if [ "$port" == "" ]; then
+if [ $# -lt 1 ]; then
 	port=8080
 fi
 
