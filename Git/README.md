@@ -46,10 +46,16 @@ Should use the alternate method usually as it checks out to the new branch after
 git checkout {branch_name}
 ```
 
-#### To push a branch:
+#### To push a local branch to remote:
 
 ```bash
 git push -u origin {branch_name}
+```
+
+#### To push all local branches to remote:
+
+```bash
+git push origin --all
 ```
 
 #### To pull from remote branch:
