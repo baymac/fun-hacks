@@ -76,6 +76,14 @@ If merging needs a merge commit which will be the case if it is not a fast forwa
 Type merge commit message
 ```
 
+### Better way to manage git merge
+
+```bash
+git fetch origin <origin-branch-name>
+git checkout <local-branch-name>
+git merge --ff-only origin/<origin-branch-name> # Does only fast forward merge, this avoids merge commit.
+```
+
 #### To pull a remote pr branch:
 
 ```bash
