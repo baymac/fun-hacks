@@ -87,9 +87,18 @@ git merge --ff-only origin/<origin-branch-name> # Does only fast forward merge, 
 #### To pull a remote pr branch:
 
 ```bash
-git fetch origin pull/<ID>/head:BRANCHNAME
+git fetch origin pull/<ID>/head:<pr_branchname>
 ```
 where `ID` is the pull request id
+
+#### To commit changes to pr:
+
+```bash
+git checkout <pr_branchname>
+git remote add <pr_owner> pr_forked_repo
+# commit changes
+git push <pr_owner> <pr_branchname>
+```
 
 #### To delete a local branch from your machine
 
