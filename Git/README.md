@@ -114,6 +114,15 @@ git branch -D {branchname} # force deletes the branch without checking merged st
 git push origin --delete {remotebranch}
 ```
 
+#### Delete all branches except master (even if unmerged)
+
+```bash
+git checkout master
+git branch | grep -v '^*' | xargs git branch -D
+```
+
+Use `-d` to delete only if branches are merged.
+
 ## Remote
 
 #### To add a remote
