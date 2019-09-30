@@ -271,6 +271,13 @@ which will remove the commit (or commits) from the branch and from the index, bu
 git branch newbranchname
 ```
 
+#### To restore local branch to remote branch
+
+```
+git fetch origin
+git reset --hard origin/master
+```
+
 ### Git Difference
 
 Ways to see difference between commits:
