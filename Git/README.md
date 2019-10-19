@@ -294,6 +294,12 @@ git diff {commit1_hash} {commit2_hash} # Between two commits
 git diff {commit_hash}^! # Between a commit and its previous commit
 ```
 
+See number of lines changed since last commit:
+
+```bash
+git diff --stat
+```
+
 ## TAGS
 
 #### To see all the tags in local repository:
