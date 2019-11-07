@@ -178,7 +178,7 @@ git log --pretty=format:"%h - %an, %ar : %s"
 git log --oneline
 ```
 
-### To add and commit everything
+### To add and commit in one line
 
 ```bash
 git commit -am <message>
@@ -277,6 +277,26 @@ git branch newbranchname
 git fetch origin
 git reset --hard origin/master
 ```
+
+#### To remove all commits before one commit
+
+This is generally useful when you are working on boilerplate codes. You can commit your changes and remove the commits before your commit.
+
+```
+# https://stackoverflow.com/a/3063486
+git checkout -b oldroot X
+TREE=`git write-tree`
+COMMIT=`echo "Killed history" | git commit-tree "$TREE"`
+git checkout -b newroot "$COMMIT"
+git rebase --onto newroot oldroot master
+# repeat for other branches than master that should use the new initial commit
+git checkout master
+git branch -D oldroot
+git branch -D newroot
+git gc # WARNING: if everything's done right, this will actually delete your history from the repo! gc stands for garbage collection
+```
+
+Suppose X is the commit which you want to remove the commits from. Remember removing commits is in the reverse chronological order.
 
 ### Git Difference
 
