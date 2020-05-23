@@ -142,3 +142,12 @@ export JAVA_HOME=/usr/lib/jvm/java-8-oracle (For JDK 8)
 export JAVA_HOME=/usr/lib/jvm/java-11-oracle (For JDK 11)
 ```
 
+
+### Day 14:
+
+Find mime type of a file:
+
+
+```
+file -b --mime-type <file_name>
+```
